@@ -1,14 +1,13 @@
-import { useState} from "react";
+
 
 const Sort = ({value, contacts, contacts2, setContacts})=>{
-    const [selectedSort, setSelectedSort] = useState();
+    
     
     const defaultValue="Сортировка"
     
     const sortPosts = (sorted) => {
         if (sorted==='original'){setContacts(contacts2)}
         else{
-        setSelectedSort(sorted)
         setContacts([...contacts].sort((a,b)=> a[sorted].localeCompare(b[sorted])))
         }
       }

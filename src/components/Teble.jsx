@@ -9,6 +9,9 @@ import { v4 } from 'uuid';
 import Search from "./part/Search";
 import Sort from "./part/Sort";
 import Pagination from "./part/changes/Pagination.jsx";
+import img1 from '../img/pick.png';
+import img2 from '../img/down.png';
+import img3 from '../img/up.png';
 
 const Teble = () => {
     let newData = data.map(item => {
@@ -140,12 +143,70 @@ const lastPostIndex = currentPage * postsPerPage;
 const firstPostIndex = lastPostIndex - postsPerPage;
 const currentPosts = sortTeble.slice(firstPostIndex, lastPostIndex);
 
+// sort 2 vs img
+const [imgFullName, setImgFullName] = useState(img1);
+const [imgDate, setImgDate] = useState(img1);
+const [imgMonth, setImgMonth] = useState(img1);
+const [imgYear, setImgYear] = useState(img1);
+
+const [order, setOrder] = useState('ASC');
+const sorting =(col)=>{
+    if (order === 'ASC'){
+      const sorted = [...contacts].sort((a, b) =>
+        a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+      );
+      setContacts(sorted);
+      setOrder('DSC');
+      if(col==='fullName'){setImgFullName(img2)
+          if(imgDate===img2 || imgDate===img3){setImgDate(img1)}
+          if(imgMonth===img2 || imgMonth===img3){setImgMonth(img1)}
+          if(imgYear===img2 || imgYear===img3){setImgYear(img1)}}
+      if(col==='date'){setImgDate(img2)
+          if(imgFullName===img2 || imgFullName===img3){setImgFullName(img1)}
+          if(imgMonth===img2 || imgMonth===img3){setImgMonth(img1)}
+          if(imgYear===img2 || imgYear===img3){setImgYear(img1)}}
+      if(col==='month'){setImgMonth(img2)
+          if(imgFullName===img2 || imgFullName===img3){setImgFullName(img1)}
+          if(imgDate===img2 || imgDate===img3){setImgDate(img1)}
+          if(imgYear===img2 || imgYear===img3){setImgYear(img1)}}
+      if(col==='year'){setImgYear(img2)
+          if(imgFullName===img2 || imgFullName===img3){setImgFullName(img1)}
+          if(imgDate===img2 || imgDate===img3){setImgDate(img1)}
+          if(imgMonth===img2 || imgMonth===img3){setImgMonth(img1)}}
+    }
+    if(order === 'DSC'){
+      const sorted = [...contacts].sort((a, b) =>
+        a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+      );
+      setContacts(sorted);
+      setOrder('ASC');
+      if(col==='fullName'){setImgFullName(img3)
+          if(imgDate===img2 || imgDate===img3){setImgDate(img1)}
+          if(imgMonth===img2 || imgMonth===img3){setImgMonth(img1)}
+          if(imgYear===img2 || imgYear===img3){setImgYear(img1)}}
+      if(col==='date'){setImgDate(img3)
+          if(imgFullName===img2 || imgFullName===img3){setImgFullName(img1)}
+          if(imgMonth===img2 || imgMonth===img3){setImgMonth(img1)}
+          if(imgYear===img2 || imgYear===img3){setImgYear(img1)}}
+      if(col==='month'){setImgMonth(img3)
+          if(imgFullName===img2 || imgFullName===img3){setImgFullName(img1)}
+          if(imgDate===img2 || imgDate===img3){setImgDate(img1)}
+          if(imgYear===img2 || imgYear===img3){setImgYear(img1)}}
+      if(col==='year'){setImgYear(img3)
+          if(imgFullName===img2 || imgFullName===img3){setImgFullName(img1)}
+          if(imgDate===img2 || imgDate===img3){setImgDate(img1)}
+          if(imgMonth===img2 || imgMonth===img3){setImgMonth(img1)}}
+    }
+}
+
+
   return (
     <div className="teble-container">
           <Search setsearchTerm={setsearchTerm}/>
       <form onSubmit={handleEditFormSubmit}>
         <table>
-          <TableHeader />
+          <TableHeader sorting={sorting} imgFullName={imgFullName} imgDate={imgDate} 
+          imgMonth={imgMonth} imgYear={imgYear}/>
           <TableBody currentPosts={currentPosts}
            contacts2={contacts2}  editContactId={editContactId}
            handleEditFormChange={handleEditFormChange} handleCancelClick={handleCancelClick} 
